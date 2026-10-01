@@ -1,0 +1,96 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { experience } from '../data/experience';
+---
+
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <div class="container split">
+    <div class="aside">
+      <SectionHeading id="experience-title" eyebrow="02 — Experience" title="Where I've shipped" />
+    </div>
+    <ol class="roles">
+      {
+        experience.map((role) => (
+          <li>
+            <span class="dates">
+              {role.start} — {role.end}
+            </span>
+            <div class="role">
+              <span class="title">
+                {role.title} · {role.company}
+              </span>
+              <span class="muted">{role.summary}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .split {
+    display: flex;
+    gap: clamp(20px, 5.5vw, 80px);
+  }
+
+  .aside {
+    width: 360px;
+    flex-shrink: 0;
+  }
+
+  .roles {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    gap: 40px;
+    padding-block: 28px;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .dates {
+    width: 160px;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--color-muted);
+  }
+
+  .role {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 959px) {
+    .split {
+      flex-direction: column;
+    }
+
+    .aside {
+      width: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    li {
+      flex-direction: column;
+      gap: 6px;
+      padding-block: 18px;
+    }
+
+    .title {
+      font-size: 1.0625rem;
+    }
+  }
+</style>

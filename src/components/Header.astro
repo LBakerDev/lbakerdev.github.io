@@ -1,0 +1,89 @@
+---
+import MobileNav from './islands/MobileNav';
+import { site, nav } from '../data/site';
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="/">{site.name}</a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a class="btn btn-dark resume" href={site.resumeUrl}>Résumé (PDF)</a>
+    </nav>
+
+    <!-- The only JavaScript on the page: loads when the viewport is phone-sized. -->
+    <div class="mobile-nav">
+      <MobileNav client:media="(max-width: 767px)" links={[...nav]} resumeUrl={site.resumeUrl} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .header-inner {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    font-size: 0.9375rem;
+  }
+
+  .desktop-nav a:not(.btn) {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .desktop-nav a:not(.btn):hover {
+    color: var(--color-accent);
+  }
+
+  .resume {
+    min-height: 44px;
+    padding: 10px 20px;
+    font-size: 0.9375rem;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .header-inner {
+      height: 64px;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-nav {
+      display: block;
+    }
+  }
+</style>

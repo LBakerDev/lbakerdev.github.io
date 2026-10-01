@@ -1,0 +1,40 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  size?: 'md' | 'lg';
+}
+
+const { value, label, size = 'lg' } = Astro.props;
+---
+
+<div class:list={['metric', size]}>
+  <span class="value">{value}</span>
+  <span class="label">{label}</span>
+</div>
+
+<style>
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .value {
+    font-family: var(--font-display);
+    line-height: 1;
+  }
+
+  .lg .value {
+    font-size: clamp(1.875rem, 1.5rem + 1.2vw, 2.5rem);
+  }
+
+  .md .value {
+    font-size: 1.875rem;
+  }
+
+  .label {
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+</style>

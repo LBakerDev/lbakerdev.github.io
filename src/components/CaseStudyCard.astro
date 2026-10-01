@@ -1,0 +1,216 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Metric from './Metric.astro';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  variant?: 'featured' | 'standard';
+}
+
+const { entry, variant = 'standard' } = Astro.props;
+const { title, company, year, summary, metrics, stack, cover, coverAlt } = entry.data;
+const href = `/work/${entry.id}/`;
+const featured = variant === 'featured';
+---
+
+<article class:list={['card', variant]}>
+  <div class="media">
+    {
+      cover ? (
+        <Image
+          src={cover}
+          alt={coverAlt ?? ''}
+          widths={featured ? [640, 960, 1280] : [480, 720, 960]}
+          sizes={featured ? '(min-width: 960px) 55vw, 100vw' : '(min-width: 768px) 45vw, 100vw'}
+          loading={featured ? 'eager' : 'lazy'}
+        />
+      ) : (
+        <div class="placeholder">[Screenshot · 16:10]</div>
+      )
+    }
+  </div>
+
+  <div class="body">
+    <span class:list={['meta', { accent: featured }]}>
+      {featured && 'Featured · '}{company} · {year}
+    </span>
+    <h3><a href={href}>{title}</a></h3>
+    <p class="muted">{summary}</p>
+
+    {
+      featured && metrics.length > 0 && (
+        <div class="metrics">
+          {metrics.slice(0, 2).map((m) => (
+            <Metric value={m.value} label={m.label} />
+          ))}
+        </div>
+      )
+    }
+
+    {
+      featured ? (
+        <ul class="tags" aria-label="Tech stack">
+          {stack.map((s) => (
+            <li class="tag">{s}</li>
+          ))}
+        </ul>
+      ) : null
+    }
+
+    <div class="footer">
+      {!featured && <span class="stack">{stack.join(' · ')}</span>}
+      <a class="more" href={href} aria-hidden="true" tabindex="-1">
+        {featured ? 'Read the case study →' : 'Case study →'}
+      </a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .card:hover {
+    border-color: var(--color-line-strong);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .media :global(img),
+  .media .placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    color: var(--color-muted);
+  }
+
+  .meta.accent {
+    color: var(--color-accent);
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    line-height: 1.15;
+  }
+
+  /* Whole card is clickable via the title link; the visible "Case study →" is decorative. */
+  h3 a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  h3 a:focus-visible {
+    outline: none;
+  }
+
+  .card:has(h3 a:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .metrics {
+    display: flex;
+    gap: 32px;
+    padding-block: 20px;
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: auto;
+  }
+
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  .more {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* Featured: image left, text right on wide screens */
+  .featured {
+    padding: clamp(16px, 2.2vw, 32px);
+  }
+
+  .featured h3 {
+    font-size: var(--text-h3-lg);
+    line-height: 1.1;
+  }
+
+  @media (min-width: 960px) {
+    .featured {
+      flex-direction: row;
+      gap: 56px;
+    }
+
+    .featured .media {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .featured .media :global(img),
+    .featured .media .placeholder {
+      height: 100%;
+      min-height: 440px;
+      aspect-ratio: auto;
+    }
+
+    .featured .body {
+      width: 420px;
+      flex-shrink: 0;
+      padding: 16px 8px;
+      gap: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="top" class="hero container">
+  {
+    site.availability.open && (
+      <p class="status">
+        <span class="dot" aria-hidden="true" />
+        <span class="long">{site.availability.label}</span>
+        <span class="short">{site.availability.shortLabel}</span>
+      </p>
+    )
+  }
+
+  <h1>
+    Senior frontend engineer building <em>fast, accessible</em> product UI in React &amp; TypeScript.
+  </h1>
+
+  <p class="lead">
+    [One or two sentences: the kind of problems you solve and the scale you work at — e.g. design
+    systems, auth flows, performance for millions of users.]
+  </p>
+
+  <div class="actions">
+    <a class="btn btn-primary" href="#work">
+      View selected work
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4"></path>
+      </svg>
+    </a>
+    <a class="btn btn-outline" href={site.resumeUrl}>Download résumé</a>
+    <div class="socials">
+      <a href={site.links.github} rel="me">GitHub ↗</a>
+      <a href={site.links.linkedin} rel="me">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(56px, 8vw, 120px) clamp(64px, 8vw, 112px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 3vw, 40px);
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--color-muted);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-pill);
+    background: var(--color-success);
+    flex-shrink: 0;
+  }
+
+  .short {
+    display: none;
+  }
+
+  h1 {
+    max-width: 1120px;
+    font-size: var(--text-hero);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    color: var(--color-accent);
+  }
+
+  .lead {
+    max-width: 640px;
+    font-size: var(--text-lead);
+    color: var(--color-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .socials {
+    display: flex;
+    gap: 24px;
+    margin-left: 24px;
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 767px) {
+    .long {
+      display: none;
+    }
+
+    .short {
+      display: inline;
+    }
+
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .socials {
+      margin-left: 0;
+      justify-content: center;
+      padding-top: 8px;
+    }
+  }
+</style>

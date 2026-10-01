@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './SectionHeading.astro';
+import CaseStudyCard from './CaseStudyCard.astro';
+
+const entries = (await getCollection('work', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featured = entries.find((e) => e.data.featured) ?? entries[0];
+const rest = entries.filter((e) => e !== featured);
+---
+
+<section id="work" class="section" aria-labelledby="work-title">
+  <div class="container stack">
+    <div class="intro">
+      <SectionHeading id="work-title" eyebrow="01 — Selected work" title="Case studies" />
+      <p class="muted">Three projects, each framed as problem → what I did → measurable result.</p>
+    </div>
+
+    {featured && <CaseStudyCard entry={featured} variant="featured" />}
+
+    <div class="grid">
+      {rest.map((entry) => <CaseStudyCard entry={entry} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 3.5vw, 48px);
+  }
+
+  .intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .intro p {
+    max-width: 420px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  @media (max-width: 767px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+    }
+  }
+</style>

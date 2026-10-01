@@ -1,0 +1,99 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="contact" aria-labelledby="contact-title">
+  <div class="container inner">
+    <span class="eyebrow">05 — Contact</span>
+    <h2 id="contact-title">Hiring for a frontend role? Let's talk.</h2>
+    <div class="actions">
+      <a class="btn btn-light" href={`mailto:${site.email}`}>{site.email}</a>
+      <a class="btn btn-ghost" href={site.resumeUrl}>Download résumé</a>
+    </div>
+    <div class="legal">
+      <span>© {year} {site.name} · {site.location}</span>
+      <div class="links">
+        <a href={site.links.github} rel="me">GitHub</a>
+        <a href={site.links.linkedin} rel="me">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-ink);
+    padding-block: clamp(64px, 9vw, 120px) 32px;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 2.8vw, 36px);
+  }
+
+  .eyebrow {
+    color: var(--color-inverse-muted);
+  }
+
+  h2 {
+    max-width: 1000px;
+    font-size: var(--text-contact);
+    line-height: 1.02;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .btn-light {
+    background: var(--color-inverse-ink);
+    color: var(--color-ink);
+  }
+
+  .btn-light:hover {
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-inverse-ink);
+    color: var(--color-inverse-ink);
+  }
+
+  .btn-ghost:hover {
+    background: var(--color-inverse-ink);
+    color: var(--color-ink);
+  }
+
+  .legal {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: clamp(24px, 3.5vw, 48px);
+    padding-top: 28px;
+    border-top: 1px solid var(--color-inverse-line);
+    font-size: var(--text-small);
+    color: var(--color-inverse-muted);
+  }
+
+  .links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .links a {
+    color: var(--color-inverse-ink);
+  }
+
+  @media (max-width: 767px) {
+    .actions {
+      flex-direction: column;
+    }
+  }
+</style>

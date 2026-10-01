@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  id?: string;
+}
+
+const { eyebrow, title, id } = Astro.props;
+---
+
+<div class="section-heading">
+  <span class="eyebrow">{eyebrow}</span>
+  <h2 id={id}>{title}</h2>
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    line-height: 1.05;
+  }
+</style>
