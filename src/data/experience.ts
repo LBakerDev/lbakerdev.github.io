@@ -14,7 +14,7 @@ export const experience: Role[] = [
     start: '2024',
     end: '2026',
     summary:
-      'Owned frontend for email, SMS and WhatsApp reporting used by millions of customers. Cut SMS data latency from hours to minutes and led three engineers on WhatsApp reporting.',
+      'Owned frontend for email, SMS and WhatsApp reporting serving 2.4M monthly users. Cut SMS data latency from hours to minutes and led three engineers on WhatsApp reporting.',
     caseStudy: '/work/mailchimp-audience-analytics/',
   },
   {
@@ -38,7 +38,7 @@ export const experience: Role[] = [
 // Shown as one compact line under the main list. Full detail lives in the résumé.
 export const earlier = {
   years: '2018 — 2020',
-  text: 'Frontend engineer at Buckle (fintech startup), LivePerson and Client Command: customer portals, real-time chat and D3.js reporting dashboards.',
+  text: 'Frontend engineer at Buckle (insurtech startup), LivePerson and Client Command: customer portals, real-time chat and D3.js reporting dashboards.',
 };
 
 export const toolkit = [
