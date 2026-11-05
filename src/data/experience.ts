@@ -4,6 +4,7 @@ export interface Role {
   start: string;
   end: string; // use 'Now' for a current role
   summary: string; // one line of scope + one headline result
+  caseStudy?: string; // optional link to a case study on this site
 }
 
 export const experience: Role[] = [
@@ -13,7 +14,8 @@ export const experience: Role[] = [
     start: '2024',
     end: '2026',
     summary:
-      "Owned frontend for email, SMS and WhatsApp reporting in Mailchimp's analytics platform and led three engineers on WhatsApp reporting; rebuilt SMS reporting to stream metrics in real time, cutting data latency from hours to minutes.",
+      'Owned frontend for email, SMS and WhatsApp reporting used by millions of customers. Cut SMS data latency from hours to minutes and led three engineers on WhatsApp reporting.',
+    caseStudy: '/work/mailchimp-audience-analytics/',
   },
   {
     title: 'Senior Consultant',
