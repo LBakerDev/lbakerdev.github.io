@@ -9,7 +9,7 @@ import { site, nav } from '../data/site';
 
     <nav class="desktop-nav" aria-label="Primary">
       {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a class="btn btn-dark resume" href={site.resumeUrl}>Résumé (PDF)</a>
+      <a class="btn btn-dark resume" href={site.resumeUrl} data-goatcounter-click="resume-header">Résumé (PDF)</a>
     </nav>
 
     <!-- The only JavaScript on the page: loads when the viewport is phone-sized. -->

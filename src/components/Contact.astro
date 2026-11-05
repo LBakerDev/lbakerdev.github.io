@@ -8,11 +8,11 @@ const year = new Date().getFullYear();
     <span class="eyebrow">05 — Contact</span>
     <h2 id="contact-title">Hiring for a frontend role? Let's talk.</h2>
     <div class="actions">
-      <a class="btn btn-light" href={`mailto:${site.email}`}>{site.email}</a>
-      <button type="button" class="btn btn-ghost copy" data-copy={site.email}>
+      <a class="btn btn-light" href={`mailto:${site.email}`} data-goatcounter-click="email-mailto">{site.email}</a>
+      <button type="button" class="btn btn-ghost copy" data-copy={site.email} data-goatcounter-click="email-copy">
         <span class="copy-label">Copy email</span>
       </button>
-      <a class="btn btn-ghost" href={site.resumeUrl}>Download résumé</a>
+      <a class="btn btn-ghost" href={site.resumeUrl} data-goatcounter-click="resume-contact">Download résumé</a>
     </div>
     <p class="local-time">
       <span class="pulse-dot" aria-hidden="true"></span>
@@ -22,8 +22,8 @@ const year = new Date().getFullYear();
     <div class="legal">
       <span>© {year} {site.name} · {site.location}</span>
       <div class="links">
-        <a href={site.links.github} rel="me">GitHub</a>
-        <a href={site.links.linkedin} rel="me">LinkedIn</a>
+        <a href={site.links.github} rel="me" data-goatcounter-click="github-footer">GitHub</a>
+        <a href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-footer">LinkedIn</a>
       </div>
     </div>
   </div>

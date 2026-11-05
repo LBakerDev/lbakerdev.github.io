@@ -46,7 +46,7 @@ export default function MobileNav({ links, resumeUrl }: Props) {
             {link.label}
           </a>
         ))}
-        <a className="btn btn-dark" href={resumeUrl} onClick={close}>
+        <a className="btn btn-dark" href={resumeUrl} onClick={close} data-goatcounter-click="resume-mobile-menu">
           Résumé (PDF)
         </a>
       </nav>

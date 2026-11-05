@@ -35,7 +35,7 @@ const featured = variant === 'featured';
     <span class:list={['meta', { accent: entry.data.featured }]}>
       {entry.data.featured && 'Featured · '}{company} · {year}
     </span>
-    <h3><a href={href}>{title}</a></h3>
+    <h3><a href={href} data-goatcounter-click={`card-${entry.id}`}>{title}</a></h3>
     <p class="muted">{summary}</p>
 
     {
