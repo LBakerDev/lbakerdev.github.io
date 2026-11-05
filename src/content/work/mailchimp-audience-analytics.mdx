@@ -19,28 +19,21 @@ coverAlt: 'Recreation of an audience analytics page: a 7, 30 and 90 day selector
 
 ## The question behind the page
 
-Most people who open an analytics page aren't looking for analytics. They have one question and want it answered fast. For Audience Analytics, that question is "Is my audience growing, and where is it coming from?"
+Most people who open an analytics page aren't looking for analytics. They have one question: "Is my audience growing, and where is it coming from?" The page had to answer that at a glance for someone running a bakery, and still hold up for a marketer digging into last quarter by channel.
 
-The page had to answer it in a glance for someone running a bakery, and still hold up for the marketer who wants to dig into last quarter by channel.
-
-## What the page does
-
-- **A simple time control.** Group by 7, 30 or 90 days. One choice, and every number and chart on the page follows it.
-- **One headline number.** Total contacts, how much it changed from the previous period, and an arrow that shows the direction before you read a single digit.
-- **Where people came from.** A breakdown by channel (email, SMS and WhatsApp), with unsubscribed contacts shown alongside rather than quietly dropped. The rows add up to the headline total, so nobody has to wonder why the math doesn't match.
-- **The trend over time.** A Highcharts chart of contact growth that switches between a line and a column view from a small settings menu, so the chart stays the focus instead of a row of toggles.
+Two details carry most of the weight. One time control (7, 30 or 90 days) drives every number and chart on the page. And unsubscribed contacts are shown next to each channel instead of quietly dropped, so the rows always add up to the headline total and nobody wonders why the math doesn't match.
 
 ## What I worked on
 
-I owned frontend delivery for email, SMS and WhatsApp reporting in Mailchimp's analytics platform, and led three engineers on the WhatsApp reporting work.
+**Leading WhatsApp reporting.** I led a team of three frontend engineers and partnered with product, design and backend to move five WhatsApp reporting surfaces to GraphQL. Each chart now asks for exactly the metrics it shows, which made the pages faster to build on and easier to reason about.
 
-**Moving to GraphQL.** I moved five WhatsApp reporting pages and three Audience Analytics components from REST to GraphQL. Each chart and panel now asks for exactly the metrics it shows, instead of pulling a large payload and throwing most of it away. That made the components easier to reuse and the data easier to reason about.
+**SMS results in minutes, not hours.** I rebuilt SMS recipient reporting to stream delivery and engagement metrics as they arrive. People used to wait hours to see how a send performed; now they can catch a problem while there's still time to fix it.
 
-**Making SMS reporting feel live.** I rebuilt the SMS recipient page and its table to stream delivery and engagement metrics as they arrive. Before, people waited hours to see how a send performed. After, they could watch results come in within minutes, which changes how you run a campaign: you can catch a problem while there's still time to fix it.
+**A widget on the homepage.** With a partner team, I built the Marketing Snapshot widget on Intuit's App Fabric micro-frontend platform, surfacing engagement and attributed revenue on Mailchimp's homepage.
 
-**Reusable data visualization.** I migrated the email click-performance view to TypeScript and built reusable chart components for the reporting dashboards, so new reports could share the same behavior and look instead of reinventing them.
+**Audience Analytics, built to be trusted.** I moved three Audience Analytics components to GraphQL and built their Playwright end-to-end suite. In reporting, a wrong number looks exactly like a right one, so tests are what keep the page honest.
 
-**Catching regressions before customers do.** I built the Playwright end-to-end test suite for the Audience Analytics surface. Reporting is where a small bug does real damage, because a wrong number looks exactly like a right one. The suite reduced the regressions that reached production.
+**Shared chart components.** I migrated the email click-performance view to TypeScript and built reusable chart components, so new reports share one look and behavior instead of each reinventing it.
 
 ## What I took away
 
