@@ -24,6 +24,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.55;
+  font-feature-settings: 'cv11', 'ss01';
   -webkit-font-smoothing: antialiased;
 }
 
@@ -51,7 +52,8 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
+  letter-spacing: -0.03em;
   margin: 0;
   text-wrap: balance;
 }
@@ -98,6 +100,17 @@ p {
   font-weight: 500;
   text-decoration: none;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Buttons styled as .btn start from a clean slate, so they never pick up the browser's grey default. */
+button.btn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 500;
+  color: inherit;
+  cursor: pointer;
 }
 
 .btn-primary {
@@ -173,4 +186,24 @@ p {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* Delight 01 — the status dot breathes. Calm, slow, and only where it means "available". */
+@keyframes breathe {
+  0%, 70%, 100% { box-shadow: 0 0 0 0 rgba(31, 138, 76, 0); }
+  35% { box-shadow: 0 0 0 6px rgba(31, 138, 76, 0.14); }
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-pill);
+  background: var(--color-success);
+  flex-shrink: 0;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
 }

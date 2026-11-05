@@ -5,7 +5,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // TODO: replace with your real domain — used for the sitemap and social previews.
-  site: 'https://example.com',
+  // Served from the LBakerDev.github.io repo. When you buy a domain, change this to it.
+  site: 'https://lbakerdev.github.io',
   integrations: [react(), mdx(), sitemap()],
 });

@@ -32,8 +32,8 @@ const featured = variant === 'featured';
   </div>
 
   <div class="body">
-    <span class:list={['meta', { accent: featured }]}>
-      {featured && 'Featured · '}{company} · {year}
+    <span class:list={['meta', { accent: entry.data.featured }]}>
+      {entry.data.featured && 'Featured · '}{company} · {year}
     </span>
     <h3><a href={href}>{title}</a></h3>
     <p class="muted">{summary}</p>
@@ -77,18 +77,10 @@ const featured = variant === 'featured';
     border-radius: var(--radius-lg);
     background: var(--color-surface);
     border: 1px solid var(--color-line);
-    transition: border-color 0.15s ease, transform 0.15s ease;
   }
 
-  .card:hover {
-    border-color: var(--color-line-strong);
-  }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .card:hover {
-      transform: translateY(-2px);
-    }
-  }
+
 
   .media :global(img),
   .media .placeholder {
@@ -199,11 +191,15 @@ const featured = variant === 'featured';
       min-width: 0;
     }
 
+    .featured .media {
+      align-self: center;
+    }
+
+    /* Keep the cover at its natural 16:10 shape so nothing gets cropped. */
     .featured .media :global(img),
     .featured .media .placeholder {
-      height: 100%;
-      min-height: 440px;
-      aspect-ratio: auto;
+      height: auto;
+      aspect-ratio: 16 / 10;
     }
 
     .featured .body {

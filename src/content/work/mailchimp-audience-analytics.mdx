@@ -1,0 +1,47 @@
+---
+title: 'Mailchimp Audience Analytics'
+company: 'Intuit Mailchimp'
+year: '2024–2026'
+role: 'Software Engineer · frontend for analytics reporting'
+summary: 'A small business owner opens Mailchimp and wants one answer: is my audience growing? I worked on the reporting pages that answer it, across email, SMS and WhatsApp, for millions of customers.'
+order: 2
+metrics:
+  - value: '8'
+    label: 'pages and components moved from REST to GraphQL'
+  - value: '3'
+    label: 'engineers I led on WhatsApp reporting'
+stack: ['React', 'TypeScript', 'GraphQL', 'Highcharts']
+cover: '../../assets/work/audience-cover-v2.png'
+coverAlt: 'Recreation of an audience analytics page: a 7, 30 and 90 day selector, total contacts of 24,630 up 4.2% from the previous period, totals and growth by channel for email, SMS, WhatsApp and unsubscribed, and a chart comparing growth by channel, with WhatsApp growing fastest. Sample data.'
+---
+
+> The screens here are a recreation with sample data. No internal screenshots, numbers or code from Mailchimp are shown.
+
+## The question behind the page
+
+Most people who open an analytics page aren't looking for analytics. They have one question and want it answered fast. For Audience Analytics, that question is "Is my audience growing, and where is it coming from?"
+
+The page had to answer it in a glance for someone running a bakery, and still hold up for the marketer who wants to dig into last quarter by channel.
+
+## What the page does
+
+- **A simple time control.** Group by 7, 30 or 90 days. One choice, and every number and chart on the page follows it.
+- **One headline number.** Total contacts, how much it changed from the previous period, and an arrow that shows the direction before you read a single digit.
+- **Where people came from.** A breakdown by channel (email, SMS and WhatsApp), with unsubscribed contacts shown alongside rather than quietly dropped. The rows add up to the headline total, so nobody has to wonder why the math doesn't match.
+- **The trend over time.** A Highcharts chart of contact growth that switches between a line and a column view from a small settings menu, so the chart stays the focus instead of a row of toggles.
+
+## What I worked on
+
+I owned frontend delivery for email, SMS and WhatsApp reporting in Mailchimp's analytics platform, and led three engineers on the WhatsApp reporting work.
+
+**Moving to GraphQL.** I moved five WhatsApp reporting pages and three Audience Analytics components from REST to GraphQL. Each chart and panel now asks for exactly the metrics it shows, instead of pulling a large payload and throwing most of it away. That made the components easier to reuse and the data easier to reason about.
+
+**Making SMS reporting feel live.** I rebuilt the SMS recipient page and its table to stream delivery and engagement metrics as they arrive. Before, people waited hours to see how a send performed. After, they could watch results come in within minutes, which changes how you run a campaign: you can catch a problem while there's still time to fix it.
+
+**Reusable data visualization.** I migrated the email click-performance view to TypeScript and built reusable chart components for the reporting dashboards, so new reports could share the same behavior and look instead of reinventing them.
+
+**Catching regressions before customers do.** I built the Playwright end-to-end test suite for the Audience Analytics surface. Reporting is where a small bug does real damage, because a wrong number looks exactly like a right one. The suite reduced the regressions that reached production.
+
+## What I took away
+
+The hardest part of analytics UI isn't the chart. It's trust. People act on these numbers, so every total has to reconcile, every comparison has to say what it's comparing against, and the page has to be honest about what it doesn't know yet. That idea carried straight into how I approach my own work, including [Caldera](/work/caldera/).

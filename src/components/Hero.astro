@@ -6,7 +6,7 @@ import { site } from '../data/site';
   {
     site.availability.open && (
       <p class="status">
-        <span class="dot" aria-hidden="true" />
+        <span class="pulse-dot" aria-hidden="true" />
         <span class="long">{site.availability.label}</span>
         <span class="short">{site.availability.shortLabel}</span>
       </p>
@@ -14,12 +14,12 @@ import { site } from '../data/site';
   }
 
   <h1>
-    Senior frontend engineer building <em>fast, accessible</em> product UI in React &amp; TypeScript.
+    Senior frontend engineer building <em>clear, fast</em> data products in React &amp; TypeScript.
   </h1>
 
   <p class="lead">
-    [One or two sentences: the kind of problems you solve and the scale you work at — e.g. design
-    systems, auth flows, performance for millions of users.]
+    I build the screens people use to make sense of their numbers. Most recently that meant
+    reporting for email, SMS and WhatsApp at Mailchimp, used by millions of customers.
   </p>
 
   <div class="actions">
@@ -69,11 +69,12 @@ import { site } from '../data/site';
   h1 {
     max-width: 1120px;
     font-size: var(--text-hero);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
   }
 
   h1 em {
+    font-style: normal;
     color: var(--color-accent);
   }
 

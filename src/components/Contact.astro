@@ -9,8 +9,16 @@ const year = new Date().getFullYear();
     <h2 id="contact-title">Hiring for a frontend role? Let's talk.</h2>
     <div class="actions">
       <a class="btn btn-light" href={`mailto:${site.email}`}>{site.email}</a>
+      <button type="button" class="btn btn-ghost copy" data-copy={site.email}>
+        <span class="copy-label">Copy email</span>
+      </button>
       <a class="btn btn-ghost" href={site.resumeUrl}>Download résumé</a>
     </div>
+    <p class="local-time">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span data-local-time>Based in Atlanta · Eastern Time</span>
+    </p>
+    <span class="visually-hidden" aria-live="polite" data-copy-status></span>
     <div class="legal">
       <span>© {year} {site.name} · {site.location}</span>
       <div class="links">
@@ -96,4 +104,58 @@ const year = new Date().getFullYear();
       flex-direction: column;
     }
   }
+
+  .copy {
+    font-family: inherit;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .copy.done {
+    border-color: var(--color-success);
+  }
+
+  .local-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--text-small);
+    color: var(--color-inverse-muted);
+  }
+
+  .local-time .pulse-dot {
+    margin-right: 2px;
+  }
 </style>
+
+<script>
+  // Delight — small, honest, useful.
+  // Local time: helps recruiters in other time zones know when a reply is likely.
+  const timeEl = document.querySelector<HTMLElement>('[data-local-time]');
+  if (timeEl) {
+    const fmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' });
+    const update = () => (timeEl.textContent = `It's ${fmt.format(new Date())} in Atlanta`);
+    update();
+    setInterval(update, 30_000);
+  }
+
+  // Copy email: one click, confirmed in place, then quietly resets.
+  const btn = document.querySelector<HTMLButtonElement>('[data-copy]');
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  btn?.addEventListener('click', async () => {
+    const label = btn.querySelector('.copy-label');
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy ?? '');
+      if (label) label.textContent = 'Copied ✓';
+      if (status) status.textContent = 'Email address copied to clipboard';
+      btn.classList.add('done');
+      setTimeout(() => {
+        if (label) label.textContent = 'Copy email';
+        btn.classList.remove('done');
+        if (status) status.textContent = '';
+      }, 2000);
+    } catch {
+      if (label) label.textContent = 'Press ⌘C to copy';
+    }
+  });
+</script>

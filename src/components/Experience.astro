@@ -1,6 +1,7 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { experience } from '../data/experience';
+import { experience, earlier } from '../data/experience';
+import { site } from '../data/site';
 ---
 
 <section id="experience" class="section" aria-labelledby="experience-title">
@@ -24,6 +25,14 @@ import { experience } from '../data/experience';
           </li>
         ))
       }
+      <li class="earlier">
+        <span class="dates">{earlier.years}</span>
+        <div class="role">
+          <span class="muted">
+            {earlier.text} <a href={site.resumeUrl}>Full history in my résumé →</a>
+          </span>
+        </div>
+      </li>
     </ol>
   </div>
 </section>
@@ -92,5 +101,9 @@ import { experience } from '../data/experience';
     .title {
       font-size: 1.0625rem;
     }
+  }
+
+  .earlier .muted {
+    font-size: 0.9375rem;
   }
 </style>

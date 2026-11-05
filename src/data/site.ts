@@ -4,18 +4,18 @@ export const site = {
   name: 'London Baker',
   role: 'Senior Frontend Engineer',
   location: 'Atlanta, GA',
-  email: '[londonbaker12@gmail.com]',
+  email: 'londonbaker12@gmail.com',
   resumeUrl: '/resume.pdf', // drop your résumé at public/resume.pdf
   description:
-    'Senior frontend engineer building fast, accessible product UI in React & TypeScript.',
+    'Senior frontend engineer building analytics dashboards and data visualization in React & TypeScript.',
   availability: {
     open: true,
-    label: 'Open to senior / staff frontend roles · Atlanta or remote',
-    shortLabel: 'Open to senior frontend roles',
+    label: 'Open to Software Engineer and Senior Software Engineer roles · Atlanta or remote',
+    shortLabel: 'Open to Software Engineer and Senior roles',
   },
   links: {
-    github: 'https://github.com/[username]',
-    linkedin: 'https://www.linkedin.com/in/[username]',
+    github: 'https://github.com/LBakerDev',
+    linkedin: 'https://www.linkedin.com/in/london-baker/',
   },
 } as const;
 

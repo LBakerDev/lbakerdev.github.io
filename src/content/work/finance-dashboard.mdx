@@ -1,0 +1,92 @@
+---
+title: 'A finance dashboard that proposes, not just reports'
+company: 'Self-initiated concept'
+year: '2026'
+role: 'UX research, information architecture & component architecture'
+summary: 'Most money dashboards are mirrors: they show what already happened and leave the next move to you. I researched and specced an action-first dashboard for financially engaged users, where every screen answers "what is true?" and "what should I do about it?"'
+featured: false
+draft: true # replaced by caldera.mdx — safe to delete
+order: 1
+metrics:
+  - value: '31'
+    label: 'components specced across 5 layers'
+  - value: '3'
+    label: 'zones, ordered by decision urgency'
+  - value: '≤3'
+    label: 'actions on screen at once'
+stack: ['UX research', 'Information architecture', 'Component API design', 'React (in progress)']
+cover: '../../assets/work/finance-dashboard.png'
+coverAlt: 'Concept dashboard with a net worth headline, three ranked action cards, KPI cards with sparklines, a 90-day cash forecast with a confidence band, and an accounts list. All figures are sample data.'
+---
+
+> **Status:** research and component spec complete; the React build is in progress. The screen above is a concept mockup with sample data.
+
+## The problem
+
+Personal finance dashboards are built to report. They show net worth, spending and returns, then leave the user to work out what to do next. For people who are comfortable with money and want to optimize it, that is expensive. They have the knowledge and the motivation, but not the time to dig through charts for the one thing that needs attention.
+
+I set myself a question: what would a dashboard look like if its main job were to put the next best decision in front of the user?
+
+## Who it's for
+
+The financially engaged user: several accounts (checking, high-yield savings, brokerage, retirement), comfortable with APY and allocation, and quick to leave a product that oversimplifies or hides a number. From that profile I drew five expectations the design had to meet:
+
+- **Dense, verifiable figures:** aligned numbers, multi-account context, no rounding without a way to see the exact value.
+- **Explained recommendations:** every suggestion answers "why this, and why now?"
+- **Keyboard-first:** a command palette for moving money and jumping around.
+- **Fewer steps:** fewer modals, undo instead of "are you sure?"
+- **Honesty about uncertainty:** forecasts show a range, not a single confident line.
+
+## Research
+
+I reviewed how banks, business fintechs and consumer money apps handle decisions, and pulled out five patterns worth borrowing:
+
+1. **A ranked next-best-action feed.** Score possible actions by value to the user and show at most three to five, each with a reason, an impact figure and one primary button.
+2. **Data storytelling over data dumps.** A sentence that names the change, a chart that proves it and an action that responds to it.
+3. **Money movement as a panel, not a page.** A slide-over transfer sheet you can open from anywhere.
+4. **A ⌘K command palette** as the fastest path to "move $5k to savings".
+5. **Reversibility over friction.** Act immediately with a short undo window for low-risk actions, and save two-step confirmation for large or external transfers.
+
+## Approach: three zones, ordered by urgency
+
+The page reads top to bottom in order of how urgent each decision is:
+
+- **Take action:** a ranked stack of one to three pending decisions, such as idle cash to move, a category over budget or a portfolio that has drifted. It's the only zone the user has to look at.
+- **Know your position:** net worth, balances, KPI cards and a cash forecast. Read-only, but every figure can be hovered or focused for more detail.
+- **Optimize:** lower-priority nudges for a weekly review, like subscription and fee audits or tax-loss harvesting.
+
+That order matches how engaged users work: act, then verify, then optimize.
+
+## Rules that build trust
+
+Recommendations only work if people trust them, so I wrote rules that every surface follows:
+
+- Never show more than three action cards at once.
+- Every recommendation shows its projected impact in dollars per year or percent, plus a "Why this?" explanation of the signal behind it.
+- Dismissed suggestions move to a "Snoozed" drawer instead of disappearing.
+- A suggestion dismissed three times in a row mutes itself for 30 days, because repeating a nudge nobody acts on erodes trust faster than anything else.
+
+## Component architecture
+
+I specced 31 components in five layers, from foundational primitives up to page-level composition. The goal was composition over configuration: each component has one job, and the same `ActionCard` or `TransferSheet` works on the dashboard, in account detail or from the command palette.
+
+- **Foundations:** `Money`, `Sparkline`, `DeltaPill`, `DataTable`, `Toast` and a designed "you're caught up" empty state.
+- **Actions:** `ActionStack`, `ActionCard`, `ActionPanel`, `ImpactBadge`, `ReasonRow`, `UndoToast`.
+- **Position:** `NetWorthHeadline`, `KPICard`, `ForecastBand`, `AccountRow`, `HoldingsTable`, `AllocationDial`, `BalanceStrip`.
+- **Money movement:** `TransferSheet`, `AmountInput`, `AccountPicker`, `FeeAndETARow`, `ConfirmStep`, `ActivityFeed`.
+- **System:** `CommandPalette`, `NudgeDrawer`, `InsightSentence`, `PeriodSelector`, `StatusDot`, `ReasoningTooltip`.
+
+## Frontend decisions worth calling out
+
+- **One `Money` primitive for every figure.** Tabular monospaced digits, currency-aware formatting and consistent signs. Columns line up in every table and KPI row, and rounding rules live in one place.
+- **One `DeltaPill` for every gain or loss.** Green and orange can't drift between screens because there is only one source of truth for tone.
+- **Optimistic actions with undo.** `ActionPanel` submits immediately and shows an `UndoToast`; `ConfirmStep` only appears above a threshold or for a new external account.
+- **Accessibility built into the primitives.** `StatusDot` pairs color with shape and position so it works for colorblind users. `ReasoningTooltip` opens on keyboard focus, not just hover, and `AmountInput` supports arrow-key nudging.
+- **Uncertainty as a first-class visual.** `ForecastBand` draws expected, best and worst cases as a band, with paychecks and bills marked as events.
+
+## What's next
+
+- Build the dashboard in React and TypeScript, starting with `Money`, `ActionStack` and `ForecastBand`, then publish a live demo with sample data.
+- Decide how to rank actions from different families against each other (urgency × impact × the user's history).
+- Decide whether the command palette should move money directly or always open the transfer sheet first.
+- Test the 30-day auto-mute rule and the Snoozed drawer with real users.

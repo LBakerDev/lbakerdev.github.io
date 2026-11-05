@@ -1,0 +1,98 @@
+---
+title: 'Caldera: a money hub that proposes, not just reports'
+company: 'Self-initiated concept'
+year: '2026'
+role: 'Product research, design language & frontend architecture'
+summary: 'Most money apps tell you what already happened. Caldera is my attempt at one that tells you what to do next: your accounts and the public trades worth knowing about in one ranked feed, every suggestion explained, and nothing done without your say-so.'
+featured: true
+order: 1
+metrics:
+  - value: '8'
+    label: 'surfaces specced for the first UI pass'
+  - value: '5'
+    label: 'colors, each with exactly one meaning'
+  - value: '0'
+    label: 'trades placed without your approval'
+stack: ['React (in progress)', 'TypeScript', 'Design systems', 'Motion & accessibility']
+cover: '../../assets/work/caldera-cover-v3.png'
+coverAlt: 'Caldera home screen: net worth in the header, a short serif greeting, three feed cards with one selected, and an action panel showing copy size, conviction, risk, a "Caldera Read: Watch first" note and a "Waiting for your approval" status. Sample data with fictional names and tickers.'
+---
+
+> **Status:** research, design language and UI spec complete; the React build of the Home screen is in progress. Everything shown uses sample data, fictional people and fictional tickers.
+
+## The problem
+
+Every money app I've used is a mirror. It shows my net worth, my spending and my returns, then leaves me to figure out what to do about any of it. The one thing that actually needs my attention is usually buried under five charts that don't.
+
+Investors who follow public disclosures (insider Form 4 filings and fund 13F reports) have the same problem in a different place: the data is public, but it's scattered, late and hard to judge.
+
+Caldera's question: what if one screen showed both your money and the outside signals worth knowing about, ranked by what deserves your attention first?
+
+## Who it's for
+
+The financially engaged user: several accounts, comfortable with APY and position sizing, and quick to leave a product that oversimplifies or hides a number. They want:
+
+- **Dense, verifiable figures:** monospaced numbers that line up, with the exact value always one hover away.
+- **Reasons, not hype:** every suggestion says why it's there and why now.
+- **Keyboard-first speed:** ⌘K to search or act, arrow keys to move through the feed.
+- **Control:** nothing moves money or places a trade until they approve it.
+
+## Research and references
+
+I studied products that handle money and density well, each for a different reason: Mercury and Modern Treasury for calm, warm neutrals; Stripe and Ramp for tables that let numbers lead; Linear for keyboard-first density; Wealthfront and Origin for restraint. Four palette directions and three type pairings went into a moodboard before I picked one.
+
+## Design language: calm baseline, warm details
+
+- **Paper-neutral palette.** Warm off-white, white surfaces, near-black ink, hairline borders. Almost no color until it means something.
+- **Five colors, one meaning each.** Green for gain, red for loss, blue for action and selection, amber for "waiting on you," gray for neutral. Green and red are never used as decoration.
+- **Two typefaces plus a voice.** Inter for the interface and IBM Plex Mono for every figure, so prices line up across rows. A serif appears in one place only: the product's own voice (the greeting and the "caught up" message), never more than two lines.
+
+## How the Home screen is organized
+
+- **Header strip in three clusters:** your money (net worth, available cash), lookup (⌘K search), and you (account menu). Market indices and the live-data badge sit smaller and quieter on the right.
+- **Filter and view bar:** filters on the left (All, Investors, Cash, Accounts), views on the right (Watchlist, Hidden), separated by a divider so scope and view never blur together.
+- **One ranked feed** that mixes money cards (idle cash, balance alerts, milestones) and investing cards (disclosed trades), each with a one-line plain-English title.
+- **A persistent right-rail Action Panel.** Selecting a card updates the panel instead of opening a modal or expanding inline, so you can move through the feed without losing your place.
+
+Inside the Action Panel I used progressive disclosure: the decision tier (tracker, copy size, conviction, risk) is always visible, while Reasoning and Provenance stay collapsed until you ask for them.
+
+## Caldera Read: a container for AI output
+
+Caldera summarizes signals with AI, so I designed one reusable component for every AI judgment in the product. It always has three parts:
+
+1. **A short calibrated label**, such as "Watch first."
+2. **A scope qualifier** that says what it is and isn't: "Sizing check, not a buy."
+3. **A disclaimer that never changes:** "Caldera Read is calibrated AI judgment, not financial advice."
+
+Rules keep it honest: wording that implies certainty ("buy now," "this is the move") is forbidden, and when the label's wording varies for personality, the variant is chosen deterministically per ticker and day, so the same call reads the same way all day instead of changing on every render.
+
+## Trust by design
+
+- **Approval before execution.** Copying a trade or sweeping cash shows "Waiting for your approval" until you confirm. There is no auto-execute.
+- **Plain language.** "Copy" instead of "Mirror," "Waiting for your approval" instead of "Queued."
+- **Honest data state.** A small badge says whether figures are live or a cached close, and how old they are.
+
+## Delight, but earned
+
+A calm product makes small moments of warmth count. I specced six, each cheap to build:
+
+- **The brand mark breathes.** The green dot pulses slowly when all is calm, and turns amber and quicker when something is waiting on you.
+- **The greeting reads the situation:** "Quiet morning. One thing's waiting" versus "Caught up. Nothing needs you right now." No exclamation marks, no emoji.
+- **Selecting a card feels tactile:** a 2px lift, a single blue edge pulse and a 220ms cross-fade in the Action Panel.
+- **Numbers count up and sparklines draw** on first load, about 900ms, with tabular figures so nothing shifts as digits change.
+- **"Caught up" is a destination,** a designed end state rather than an empty list.
+
+Every animation collapses to an instant change under `prefers-reduced-motion`.
+
+## Frontend decisions worth calling out
+
+- **One `Money` primitive for every figure:** tabular monospaced digits, currency-aware formatting and one set of rounding rules.
+- **Deterministic copy variants**, keyed by ticker and day, so server and client render the same words and nothing flickers.
+- **Keyboard support built in:** ↑/↓ moves the selection through the feed, Enter expands, ⌘K opens search and actions.
+- **Accessible status:** color always comes with a label, shape or position, so meaning survives for colorblind users.
+
+## What's next
+
+- Build the Home screen as a live React + TypeScript demo with sample data: header strip, ranked feed, Action Panel, Caldera Read and the caught-up state.
+- Settle the open questions from the UI brief: how small the indices strip can get and stay readable, and whether panel changes should cross-fade (calmer) or slide (clearer cause and effect).
+- Test the approval flow, and whether deeper reasoning ever justifies a modal instead of the right rail.

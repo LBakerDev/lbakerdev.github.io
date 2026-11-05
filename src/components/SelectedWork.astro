@@ -14,14 +14,24 @@ const rest = entries.filter((e) => e !== featured);
   <div class="container stack">
     <div class="intro">
       <SectionHeading id="work-title" eyebrow="01 — Selected work" title="Case studies" />
-      <p class="muted">Three projects, each framed as problem → what I did → measurable result.</p>
+      <p class="muted">Each project is framed as problem → approach → result.</p>
     </div>
 
     {featured && <CaseStudyCard entry={featured} variant="featured" />}
 
-    <div class="grid">
-      {rest.map((entry) => <CaseStudyCard entry={entry} />)}
-    </div>
+    {
+      rest.length === 1 ? (
+        <CaseStudyCard entry={rest[0]} variant="featured" />
+      ) : (
+        rest.length > 1 && (
+          <div class="grid">
+            {rest.map((entry) => (
+              <CaseStudyCard entry={entry} />
+            ))}
+          </div>
+        )
+      )
+    }
   </div>
 </section>
 

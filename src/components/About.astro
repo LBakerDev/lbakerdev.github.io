@@ -1,20 +1,24 @@
 ---
-// To add a portrait: put it in src/assets/ and swap the placeholder for
-// <Image src={portrait} alt="…" /> from 'astro:assets'.
+// Want a photo? Put it in src/assets/, import it, and add
+// <Image src={portrait} alt="…" class="portrait" /> from 'astro:assets' before .text.
 ---
 
 <section id="about" class="section" aria-labelledby="about-title">
   <div class="container split">
-    <div class="placeholder portrait">[Portrait · 4:5]</div>
     <div class="text">
       <span class="eyebrow">04 — About</span>
       <h2 id="about-title" class="visually-hidden">About me</h2>
       <p class="statement">
-        [A human sentence about how you work — what you care about in the craft.]
+        The best data products answer the question you were about to ask.
       </p>
       <p class="muted">
-        [Short paragraph: background, what you're looking for next, one detail outside work. Keep
-        it to 3–4 sentences.]
+        Before I wrote a line of code, I spent six years as a claims adjuster at State Farm, turning
+        messy information into decisions people had to live with. It turns out that's most of
+        frontend work too. Since an apprenticeship in 2017, I've built reporting at Mailchimp,
+        internal tools used by 30,000 people at Nationwide and customer portals for a fintech
+        startup. On my own time I'm designing Caldera, a money app that tells you what to do next,
+        not just what already happened. Next, I want a senior frontend role on a team building
+        analytics, data or fintech products, in Atlanta or remote.
       </p>
     </div>
   </div>
@@ -43,8 +47,10 @@
 
   .statement {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
-    line-height: 1.2;
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
   }
 
   .muted {
