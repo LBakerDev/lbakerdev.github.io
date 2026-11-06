@@ -10,7 +10,7 @@ const featured = entries.find((e) => e.data.featured) ?? entries[0];
 const rest = entries.filter((e) => e !== featured);
 ---
 
-<section id="work" class="section" aria-labelledby="work-title">
+<section id="work" class="section work" aria-labelledby="work-title">
   <div class="container stack">
     <div class="intro">
       <SectionHeading id="work-title" eyebrow="01 — Selected work" title="Case studies" />
@@ -36,10 +36,16 @@ const rest = entries.filter((e) => e !== featured);
 </section>
 
 <style>
+  /* Starts closer to the hero than other sections, so the first case study
+     shows on (or near) the first screen. */
+  .work {
+    padding-top: clamp(40px, 4.5vw, 64px);
+  }
+
   .stack {
     display: flex;
     flex-direction: column;
-    gap: clamp(28px, 3.5vw, 48px);
+    gap: clamp(24px, 3vw, 40px);
   }
 
   .intro {

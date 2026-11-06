@@ -29,20 +29,18 @@ import { site } from '../data/site';
         <path d="M3 8h10M9 4l4 4-4 4"></path>
       </svg>
     </a>
-    <a class="btn btn-outline" href={site.resumeUrl} data-goatcounter-click="resume-hero">Download résumé</a>
-    <div class="socials">
-      <a href={site.links.github} rel="me" data-goatcounter-click="github-hero">GitHub ↗</a>
-      <a href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-hero">LinkedIn ↗</a>
-    </div>
+    <a class="btn btn-outline" href={site.links.github} rel="me" data-goatcounter-click="github-hero">GitHub ↗</a>
+    <a class="social" href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-hero">LinkedIn ↗</a>
   </div>
 </section>
 
 <style>
+  /* Kept compact on purpose, so the selected work starts close to the first screen. */
   .hero {
-    padding-block: clamp(56px, 8vw, 120px) clamp(64px, 8vw, 112px);
+    padding-block: clamp(40px, 5vw, 72px) clamp(40px, 4.5vw, 64px);
     display: flex;
     flex-direction: column;
-    gap: clamp(24px, 3vw, 40px);
+    gap: clamp(20px, 2.4vw, 32px);
   }
 
   .status {
@@ -52,14 +50,6 @@ import { site } from '../data/site';
     font-family: var(--font-mono);
     font-size: var(--text-small);
     color: var(--color-muted);
-  }
-
-  .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: var(--radius-pill);
-    background: var(--color-success);
-    flex-shrink: 0;
   }
 
   .short {
@@ -79,7 +69,7 @@ import { site } from '../data/site';
   }
 
   .lead {
-    max-width: 640px;
+    max-width: 760px;
     font-size: var(--text-lead);
     color: var(--color-muted);
   }
@@ -91,11 +81,17 @@ import { site } from '../data/site';
     gap: 16px;
   }
 
-  .socials {
-    display: flex;
-    gap: 24px;
-    margin-left: 24px;
+  /* A quiet text link, without the underline, beside the buttons. */
+  .social {
+    margin-left: 8px;
     font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .social:hover {
+    color: var(--color-accent);
   }
 
   @media (max-width: 767px) {
@@ -112,9 +108,9 @@ import { site } from '../data/site';
       align-items: stretch;
     }
 
-    .socials {
+    .social {
       margin-left: 0;
-      justify-content: center;
+      text-align: center;
       padding-top: 8px;
     }
   }

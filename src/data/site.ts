@@ -10,7 +10,7 @@ export const site = {
     'Senior frontend engineer building analytics dashboards and data visualization in React & TypeScript.',
   availability: {
     open: true,
-    label: 'Open to Software Engineer and Senior Software Engineer roles · Atlanta or remote',
+    label: 'Open to Software Engineer and Senior roles · Atlanta or remote',
     shortLabel: 'Open to Software Engineer and Senior roles',
   },
   links: {
