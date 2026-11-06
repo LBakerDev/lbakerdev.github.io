@@ -6,7 +6,7 @@ role: 'Design & frontend engineering · React, TypeScript, Node mock API'
 summary: 'Name a goal, and a monthly deposit invests toward it. A working app I designed and built end to end, mock API included.'
 featured: false
 order: 0 # first in the grid, below the featured case study
-draft: true # publish once the live demo and public repo are ready (see the note at the bottom)
+draft: false
 metrics:
   - value: '3'
     label: 'forms sharing one error-handling path'
@@ -16,13 +16,12 @@ metrics:
     label: 'charting libraries: the chart is hand-built SVG'
 stack: ['React', 'TypeScript', 'TanStack Query', 'Vitest']
 links:
-  demo: 'https://example.com' # TODO: live demo URL
-  repo: 'https://github.com/LBakerDev/meridian' # TODO: confirm the public repo URL
+  repo: 'https://github.com/LBakerDev/meridian-dashboard'
 cover: '../../assets/work/meridian-cover.png'
 coverAlt: 'Meridian in dark mode: a total of $17,333 with a green "up $1,883, 12.2%" pill, a teal line chart of value pulling ahead of a dashed line of money put in, and goals for a house deposit and an emergency cushion, each with its own colored progress bar and an "On track for" date. Sample data.'
 ---
 
-> **Status:** live demo with sample data. Every goal, amount and account is fictional.
+> **Status:** working app with a mock API and sample data; the [code and setup](https://github.com/LBakerDev/meridian-dashboard) are on GitHub, and it runs locally with `npm install` and `npm run dev`. Every goal, amount and account is fictional.
 
 ## The problem
 
@@ -62,7 +61,7 @@ The interesting work isn't the happy path. It's what happens when the numbers ar
 
 Meridian started as a timeboxed front-end exercise built on a provided API for private-markets investing: fund commitments, capital calls, NAV. It worked, but it needed a glossary before anyone could appreciate it. So I rebuilt it around goals with my own API, and most of the engineering carried over: the table became the activity view, and the commit flow became New goal.
 
-I worked with AI as a pair throughout and stayed the one deciding: mocks before code, small tested steps, and several suggestions tried in the browser and thrown out. The [full write-up](https://github.com/LBakerDev/meridian/blob/main/docs/how-it-was-built.md) covers what I kept, what I overrode and why.
+I worked with AI as a pair throughout and stayed the one deciding: mocks before code, small tested steps, and several suggestions tried in the browser and thrown out. The [full write-up](https://github.com/LBakerDev/meridian-dashboard/blob/main/docs/how-it-was-built.md) covers what I kept, what I overrode and why.
 
 ## What I'd do next
 
@@ -73,10 +72,9 @@ I worked with AI as a pair throughout and stayed the one deciding: mocks before 
 Meridian is where the ideas behind [Caldera](/work/caldera/) get proven in running code: one meaning per color, figures that line up, and quiet delight that never gets in the way.
 
 {/*
-  Before publishing (draft: false):
-  1. Live demo: front end (e.g. Vercel or GitHub Pages) + the mock API (e.g. Render). Put the URL in links.demo.
-  2. Public repo: confirm links.repo and the write-up link above. Ask the exercise's company first, or publish a fresh repo.
-  3. Screenshots in src/assets/work/: meridian-dark.png, meridian-goal.png (goal drawer, Add money),
+  Later, optional:
+  1. A live demo (e.g. one Render service serving the API and the built app). Add it as links.demo.
+  2. Screenshots in src/assets/work/: meridian-dark.png, meridian-goal.png (goal drawer, Add money),
      meridian-light.png, then uncomment the three image lines above. (meridian-cover.png is a recreation
      drawn from the app's design and sample data; swap in a real capture if you prefer.)
 */}
