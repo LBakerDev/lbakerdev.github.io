@@ -20,6 +20,13 @@ const work = defineCollection({
         .max(3)
         .default([]),
       stack: z.array(z.string()).default([]),
+      // For projects people can try or read: shown as buttons under the title.
+      links: z
+        .object({
+          demo: z.string().url().optional(),
+          repo: z.string().url().optional(),
+        })
+        .default({}),
       // Optional until you add screenshots to src/assets/work/
       cover: image().optional(),
       coverAlt: z.string().optional(),

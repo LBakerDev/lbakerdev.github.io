@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, company, year, role, summary, metrics, stack, cover, coverAlt } = entry.data;
+const { title, company, year, role, summary, metrics, stack, cover, coverAlt, links } = entry.data;
 ---
 
 <BaseLayout title={title} description={summary}>
@@ -34,6 +34,23 @@ const { title, company, year, role, summary, metrics, stack, cover, coverAlt } =
       <ul class="tags" aria-label="Tech stack">
         {stack.map((s) => <li class="tag">{s}</li>)}
       </ul>
+
+      {
+        (links.demo || links.repo) && (
+          <div class="links">
+            {links.demo && (
+              <a class="btn btn-primary" href={links.demo} data-goatcounter-click={`demo-${entry.id}`}>
+                Try the live demo ↗
+              </a>
+            )}
+            {links.repo && (
+              <a class="btn btn-outline" href={links.repo} data-goatcounter-click={`repo-${entry.id}`}>
+                Read the code ↗
+              </a>
+            )}
+          </div>
+        )
+      }
     </header>
 
     <div class="container">
@@ -100,6 +117,12 @@ const { title, company, year, role, summary, metrics, stack, cover, coverAlt } =
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .cover {

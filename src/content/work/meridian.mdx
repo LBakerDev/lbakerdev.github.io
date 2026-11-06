@@ -1,0 +1,82 @@
+---
+title: 'Meridian: goal-based investing, built to be trusted'
+company: 'Self-initiated project'
+year: '2026'
+role: 'Design & frontend engineering · React, TypeScript, Node mock API'
+summary: 'Name a goal, and a monthly deposit invests toward it. A working app I designed and built end to end, mock API included.'
+featured: false
+order: 0 # first in the grid, below the featured case study
+draft: true # publish once the live demo and public repo are ready (see the note at the bottom)
+metrics:
+  - value: '3'
+    label: 'forms sharing one error-handling path'
+  - value: '2'
+    label: 'themes from one set of color tokens'
+  - value: '0'
+    label: 'charting libraries: the chart is hand-built SVG'
+stack: ['React', 'TypeScript', 'TanStack Query', 'Vitest']
+links:
+  demo: 'https://example.com' # TODO: live demo URL
+  repo: 'https://github.com/LBakerDev/meridian' # TODO: confirm the public repo URL
+cover: '../../assets/work/meridian-cover.png'
+coverAlt: 'Meridian in dark mode: a total of $17,333 with a green "up $1,883, 12.2%" pill, a teal line chart of value pulling ahead of a dashed line of money put in, and goals for a house deposit and an emergency cushion, each with its own colored progress bar and an "On track for" date. Sample data.'
+---
+
+> **Status:** live demo with sample data. Every goal, amount and account is fictional.
+
+## The problem
+
+Investing apps are good at telling you what your money is worth and bad at telling you whether you're getting anywhere. Goal-based investing fixes the framing: you name what you're saving for ("House deposit, $20,000"), pick a ready-made portfolio, and a monthly deposit invests toward it.
+
+The interesting work isn't the happy path. It's what happens when the numbers are awkward and the network is slow. That's where trust is won or lost, the same lesson I took from [analytics at Mailchimp](/work/mailchimp-audience-analytics/).
+
+## What I built
+
+**One screen, three answers.** What it's all worth (a total, the all-time gain, and a chart of value against what you put in, where the gap is your growth). How each goal is tracking (a progress bar and "On track for Oct 2028"). And what happened (every deposit, dividend and fee).
+
+{/* ![Dark mode home screen …](../../assets/work/meridian-dark.png) */}
+
+**A goal you can act on.** Click a goal to see its numbers and recent activity, then **Add money** or **Edit** it. Both show the payoff before you commit: "This moves House deposit from Oct 2028 to Sep 2028," or the new date next to the old one when you change the monthly amount.
+
+{/* ![The goal drawer, adding money …](../../assets/work/meridian-goal.png) */}
+
+**A mock API with real-world mess.** I wrote the backend too: goals, portfolios, activity and history, with validation, 404s and 409s, and about 350 ms of latency on every request. The data is deliberately awkward: a goal that hasn't started returns zeros instead of blanks, one portfolio has a 65-character name, one is closed, one goal is paused and one is down.
+
+## Decisions that matter
+
+- **Writes finish when the page is right, not when the request returns.** Each write waits for exactly the data it changed to refetch, so the drawer closes onto the new numbers and the total counts up to its new value.
+- **Errors land where they belong.** Mistakes are caught before sending. A server message goes under the field it's about ("You can add up to $10,000 a day ($200 left today)"). A closed portfolio offers a way back, and a dropped connection says nothing was sent and keeps what you typed. Three forms, one path.
+- **Honest numbers.** A goal that hasn't started says "Starts Dec 1", not $0 and 0%. Projections say they assume a return and aren't guaranteed.
+- **Color means one thing.** Green and red are gain and loss. Each goal gets its own color for identity, never for meaning.
+- **Writes never retry on their own.** A retried deposit could add money twice.
+
+## Accessible by default
+
+- Every control is labelled, and the tests find elements by role and name, so they double as an accessibility check.
+- The chart has a one-sentence summary for screen readers and works from the keyboard: arrow keys step through months.
+- Risk dots read as "Higher risk, 4 of 5", drawers trap and return focus, and every animation stops for people who prefer reduced motion.
+
+{/* ![Light mode …](../../assets/work/meridian-light.png) */}
+
+## How it changed along the way
+
+Meridian started as a timeboxed front-end exercise built on a provided API for private-markets investing: fund commitments, capital calls, NAV. It worked, but it needed a glossary before anyone could appreciate it. So I rebuilt it around goals with my own API, and most of the engineering carried over: the table became the activity view, and the commit flow became New goal.
+
+I worked with AI as a pair throughout and stayed the one deciding: mocks before code, small tested steps, and several suggestions tried in the browser and thrown out. The [full write-up](https://github.com/LBakerDev/meridian/blob/main/docs/how-it-was-built.md) covers what I kept, what I overrode and why.
+
+## What I'd do next
+
+- An end-to-end Playwright suite against the mock API, covering each form's error paths.
+- A screen reader and contrast pass on the dark palette.
+- Milestones ("Halfway there") and per-goal history in the chart.
+
+Meridian is where the ideas behind [Caldera](/work/caldera/) get proven in running code: one meaning per color, figures that line up, and quiet delight that never gets in the way.
+
+{/*
+  Before publishing (draft: false):
+  1. Live demo: front end (e.g. Vercel or GitHub Pages) + the mock API (e.g. Render). Put the URL in links.demo.
+  2. Public repo: confirm links.repo and the write-up link above. Ask the exercise's company first, or publish a fresh repo.
+  3. Screenshots in src/assets/work/: meridian-dark.png, meridian-goal.png (goal drawer, Add money),
+     meridian-light.png, then uncomment the three image lines above. (meridian-cover.png is a recreation
+     drawn from the app's design and sample data; swap in a real capture if you prefer.)
+*/}
