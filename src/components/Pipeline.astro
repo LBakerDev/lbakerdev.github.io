@@ -1,0 +1,201 @@
+---
+/**
+ * A terminal that plays Meridian's real pipeline once on load: tests, build,
+ * deploy. Keep it true: update TESTS after `npm run test:run`, and the URL if
+ * the demo moves.
+ */
+const TESTS = 106;
+
+type Line = { kind: 'cmd' | 'ok'; text: string };
+
+const lines: Line[] = [
+  { kind: 'cmd', text: 'npm run test:run' },
+  { kind: 'ok', text: `${TESTS} tests passed` },
+  { kind: 'cmd', text: 'npm run build' },
+  { kind: 'ok', text: 'built for production' },
+  { kind: 'cmd', text: 'git push' },
+  { kind: 'ok', text: 'live · meridian-n443.onrender.com' },
+];
+
+// Commands type out; results appear just after. Delays in ms.
+let at = 400;
+const timed = lines.map((line) => {
+  const delay = at;
+  at += line.kind === 'cmd' ? line.text.length * 35 + 250 : 450;
+  return { ...line, delay };
+});
+const summary = `Meridian's pipeline: ${TESTS} tests passed, built for production, and live.`;
+---
+
+<figure class="terminal" aria-label={summary}>
+  <figcaption class="bar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="title" aria-hidden="true">meridian</span>
+    <a href="/work/meridian/" data-goatcounter-click="pipeline-hero">See the case study →</a>
+  </figcaption>
+
+  <div class="body" aria-hidden="true">
+    {
+      timed.map((line) =>
+        line.kind === 'cmd' ? (
+          <div class="line" style={`--delay: ${line.delay}ms; --chars: ${line.text.length}`}>
+            <span class="prompt">$</span>
+            <span class="cmd">{line.text}</span>
+          </div>
+        ) : (
+          <div class="line result" style={`--delay: ${line.delay}ms`}>
+            <span class="check">✓</span>
+            <span>{line.text}</span>
+          </div>
+        ),
+      )
+    }
+    <div class="line" style={`--delay: ${at}ms`}>
+      <span class="prompt">$</span>
+      <span class="cursor"></span>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .terminal {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 0 0 auto;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-inverse-bg);
+    color: var(--color-inverse-ink);
+    box-shadow: 0 20px 40px -28px rgba(22, 24, 29, 0.45);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-inverse-line);
+    font-size: 0.8125rem;
+  }
+
+  .dots {
+    display: inline-flex;
+    gap: 5px;
+  }
+
+  .dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-inverse-line);
+  }
+
+  .title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-inverse-muted);
+  }
+
+  /* The terminal's main job is getting people to the case study, so the link is a
+     clear button in the site's accent, not a quiet text link. */
+  .terminal .bar a {
+    margin-left: auto;
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.15s ease;
+  }
+
+  .terminal .bar a:hover {
+    background: var(--color-accent-hover);
+    color: #fff;
+  }
+
+  .terminal .bar a:focus-visible {
+    outline: 2px solid var(--color-inverse-ink);
+    outline-offset: 2px;
+  }
+
+  .body {
+    padding: 14px 18px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.8;
+  }
+
+  .line {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    animation: appear 1ms linear var(--delay) forwards;
+  }
+
+  .prompt {
+    color: var(--color-inverse-muted);
+  }
+
+  /* Commands type out by revealing one character's worth at a time. Clipping
+     (rather than animating width) never cuts off the last letter. */
+  .cmd {
+    clip-path: inset(0 100% 0 0);
+    animation: type calc(var(--chars) * 35ms) steps(var(--chars)) var(--delay) forwards;
+  }
+
+  .result {
+    padding-left: 18px;
+  }
+
+  .check {
+    color: #6fdc9f;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1.1em;
+    align-self: center;
+    background: var(--color-inverse-ink);
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes appear {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes type {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* No motion: show the finished run straight away. */
+  @media (prefers-reduced-motion: reduce) {
+    .line,
+    .cmd,
+    .cursor {
+      animation: none;
+      opacity: 1;
+      clip-path: none;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .terminal {
+      margin-left: 0;
+    }
+  }
+</style>

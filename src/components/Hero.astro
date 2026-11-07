@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import Pipeline from './Pipeline.astro';
 ---
 
 <section id="top" class="hero container">
@@ -17,20 +18,31 @@ import { site } from '../data/site';
     Senior frontend engineer building <em>clear, fast</em> data products in React &amp; TypeScript.
   </h1>
 
-  <p class="lead">
-    I build the screens people use to make sense of their numbers. Most recently that meant
-    reporting for email, SMS and WhatsApp at Mailchimp, used by 2.4 million people a month.
-  </p>
+  <div class="row">
+    <div class="copy">
+      <p class="lead">
+        I build the screens people use to make sense of their numbers. Most recently that meant
+        reporting for email, SMS and WhatsApp at Mailchimp, used by 2.4 million people a month.
+      </p>
 
-  <div class="actions">
-    <a class="btn btn-primary" href="#work">
-      View selected work
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-        <path d="M3 8h10M9 4l4 4-4 4"></path>
-      </svg>
-    </a>
-    <a class="btn btn-outline" href={site.links.github} rel="me" data-goatcounter-click="github-hero">GitHub ↗</a>
-    <a class="social" href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-hero">LinkedIn ↗</a>
+      <div class="actions">
+        <a class="btn btn-primary" href="#work">
+          View selected work
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4"></path>
+          </svg>
+        </a>
+        <a class="btn btn-outline" href={site.links.github} rel="me" data-goatcounter-click="github-hero">GitHub ↗</a>
+        <a class="social" href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-hero">LinkedIn ↗</a>
+      </div>
+
+      <p class="previously">
+        <span class="label">Previously at</span>
+        {site.previously.map((name) => <span class="company">{name}</span>)}
+      </p>
+    </div>
+
+    <Pipeline />
   </div>
 </section>
 
@@ -68,8 +80,28 @@ import { site } from '../data/site';
     color: var(--color-accent);
   }
 
+  /* Text and actions on the left; the pipeline panel fills the space on the right. */
+  .row {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+      gap: clamp(40px, 5vw, 80px);
+    }
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.4vw, 28px);
+  }
+
   .lead {
-    max-width: 760px;
+    max-width: 640px;
     font-size: var(--text-lead);
     color: var(--color-muted);
   }
@@ -92,6 +124,26 @@ import { site } from '../data/site';
 
   .social:hover {
     color: var(--color-accent);
+  }
+
+  /* "Previously at": the portfolio version of a logo row. */
+  .previously {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    color: var(--color-muted);
+  }
+
+  .label {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .company {
+    color: var(--color-ink);
   }
 
   @media (max-width: 767px) {

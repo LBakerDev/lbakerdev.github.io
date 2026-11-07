@@ -13,6 +13,8 @@ export const site = {
     label: 'Open to Software Engineer and Senior roles · Atlanta or remote',
     shortLabel: 'Open to Software Engineer and Senior roles',
   },
+  // Shown under the hero as quick credibility, like a logo row.
+  previously: ['Intuit Mailchimp', 'Nationwide', 'CapTech', 'LivePerson'],
   links: {
     github: 'https://github.com/LBakerDev',
     linkedin: 'https://www.linkedin.com/in/london-baker/',
