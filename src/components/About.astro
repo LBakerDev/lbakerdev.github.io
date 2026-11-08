@@ -1,13 +1,15 @@
 ---
-// Want a photo? Put it in src/assets/, import it, and add
-// <Image src={portrait} alt="…" class="portrait" /> from 'astro:assets' before .text.
+// Same two-column grid as Experience and Toolkit: the label on the left,
+// the content on the right, so all three share one left edge for their content.
 ---
 
 <section id="about" class="section" aria-labelledby="about-title">
   <div class="container split">
-    <div class="text">
+    <div class="aside">
       <span class="eyebrow">04 — About</span>
       <h2 id="about-title" class="visually-hidden">About me</h2>
+    </div>
+    <div class="text">
       <p class="statement">
         The best data products answer the question you were about to ask.
       </p>
@@ -22,20 +24,19 @@
 </section>
 
 <style>
+  /* Matches Experience.astro's .split and .aside. */
   .split {
     display: flex;
-    align-items: center;
     gap: clamp(20px, 5.5vw, 80px);
   }
 
-  .portrait {
+  .aside {
     width: 360px;
     flex-shrink: 0;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-lg);
   }
 
   .text {
+    flex-grow: 1;
     max-width: 760px;
     display: flex;
     flex-direction: column;
@@ -55,15 +56,13 @@
     line-height: 1.65;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 959px) {
     .split {
       flex-direction: column;
-      align-items: stretch;
     }
 
-    .portrait {
-      width: 100%;
-      aspect-ratio: 4 / 3;
+    .aside {
+      width: auto;
     }
   }
 </style>
