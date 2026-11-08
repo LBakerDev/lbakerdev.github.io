@@ -14,7 +14,7 @@ export const experience: Role[] = [
     start: '2024',
     end: '2026',
     summary:
-      'Owned frontend for email, SMS and WhatsApp reporting serving 2.4M monthly users. Cut SMS data latency from hours to minutes and led three engineers on WhatsApp reporting.',
+      'Owned frontend for email, SMS and WhatsApp reporting serving 2.4M monthly users. Cut SMS data delays from hours to minutes; led three engineers on WhatsApp reporting.',
     caseStudy: '/work/mailchimp-audience-analytics/',
   },
   {
@@ -23,7 +23,7 @@ export const experience: Role[] = [
     start: '2021',
     end: '2024',
     summary:
-      'Led React and TypeScript builds of an enterprise search app and an employee hub used by 30k+ employees, secured with JWT-based SSO on Azure.',
+      'Led React and TypeScript builds of an enterprise search app and an employee hub for 30k+ employees, with Azure SSO.',
   },
   {
     title: 'Senior Consultant',

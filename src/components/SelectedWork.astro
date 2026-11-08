@@ -14,7 +14,6 @@ const rest = entries.filter((e) => e !== featured);
   <div class="container stack">
     <div class="intro">
       <SectionHeading id="work-title" eyebrow="01 — Selected work" title="Case studies" />
-      <p class="muted">Each project is framed as problem → approach → result.</p>
     </div>
 
     {featured && <CaseStudyCard entry={featured} variant="featured" />}
@@ -54,10 +53,6 @@ const rest = entries.filter((e) => e !== featured);
     justify-content: space-between;
     gap: 24px;
     flex-wrap: wrap;
-  }
-
-  .intro p {
-    max-width: 420px;
   }
 
   .grid {
