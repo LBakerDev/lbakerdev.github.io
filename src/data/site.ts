@@ -10,8 +10,8 @@ export const site = {
     'Senior frontend engineer building analytics dashboards and data visualization in React & TypeScript.',
   availability: {
     open: true,
-    label: 'Open to Software Engineer and Senior roles · Atlanta or remote',
-    shortLabel: 'Open to Software Engineer and Senior roles',
+    label: 'Open to senior frontend roles · Atlanta or remote',
+    shortLabel: 'Open to senior frontend roles',
   },
   // Shown under the hero as quick credibility, like a logo row.
   previously: ['Intuit Mailchimp', 'Nationwide', 'CapTech', 'LivePerson'],

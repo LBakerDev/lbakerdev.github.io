@@ -4,7 +4,7 @@
  * deploy. Keep it true: update TESTS after `npm run test:run`, and the URL if
  * the demo moves.
  */
-const TESTS = 106;
+const TESTS = 125;
 
 type Line = { kind: 'cmd' | 'ok'; text: string };
 
@@ -140,11 +140,16 @@ const summary = `Meridian's pipeline: ${TESTS} tests passed, built for productio
     color: var(--color-inverse-muted);
   }
 
-  /* Commands type out by revealing one character's worth at a time. Clipping
-     (rather than animating width) never cuts off the last letter. */
+  /* Commands type out by revealing one character's worth at a time.
+     jump-start shows the first letter at once and the last one before the
+     animation ends, so the final letter never depends on the end state being
+     held. A second, 1ms animation then removes the clip outright, in case a
+     browser rounds the last step short (which showed "git pus"). */
   .cmd {
     clip-path: inset(0 100% 0 0);
-    animation: type calc(var(--chars) * 35ms) steps(var(--chars)) var(--delay) forwards;
+    animation:
+      type calc(var(--chars) * 35ms) steps(var(--chars), jump-start) var(--delay) forwards,
+      typed 1ms linear calc(var(--delay) + var(--chars) * 35ms) forwards;
   }
 
   .result {
@@ -173,6 +178,12 @@ const summary = `Meridian's pipeline: ${TESTS} tests passed, built for productio
   @keyframes type {
     to {
       clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @keyframes typed {
+    to {
+      clip-path: none;
     }
   }
 

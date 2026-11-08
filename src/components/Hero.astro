@@ -33,7 +33,6 @@ import Pipeline from './Pipeline.astro';
           </svg>
         </a>
         <a class="btn btn-outline" href={site.links.github} rel="me" data-goatcounter-click="github-hero">GitHub ↗</a>
-        <a class="social" href={site.links.linkedin} rel="me" data-goatcounter-click="linkedin-hero">LinkedIn ↗</a>
       </div>
 
       <p class="previously">
@@ -114,17 +113,6 @@ import Pipeline from './Pipeline.astro';
   }
 
   /* A quiet text link, without the underline, beside the buttons. */
-  .social {
-    margin-left: 8px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-
-  .social:hover {
-    color: var(--color-accent);
-  }
 
   /* "Previously at": the portfolio version of a logo row. */
   .previously {
@@ -158,12 +146,6 @@ import Pipeline from './Pipeline.astro';
     .actions {
       flex-direction: column;
       align-items: stretch;
-    }
-
-    .social {
-      margin-left: 0;
-      text-align: center;
-      padding-top: 8px;
     }
   }
 </style>
