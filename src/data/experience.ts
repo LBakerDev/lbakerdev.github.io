@@ -14,7 +14,7 @@ export const experience: Role[] = [
     start: '2024',
     end: '2026',
     summary:
-      'Owned frontend for email, SMS and WhatsApp reporting serving 2.4M monthly users. Cut SMS data delays from hours to minutes; led three engineers on WhatsApp reporting.',
+      'Owned frontend for email, SMS and WhatsApp reporting on a platform with 2.4M monthly users. Cut SMS data delays from hours to minutes; led three engineers on WhatsApp reporting.',
     caseStudy: '/work/mailchimp-audience-analytics/',
   },
   {
