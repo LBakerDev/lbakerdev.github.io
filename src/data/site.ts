@@ -2,7 +2,7 @@
 
 export const site = {
   name: 'London Baker',
-  role: 'Senior Frontend Engineer',
+  role: 'Senior Software Engineer',
   location: 'Atlanta, GA',
   email: 'londonbaker12@gmail.com',
   resumeUrl: '/resume.pdf', // drop your résumé at public/resume.pdf
@@ -10,7 +10,7 @@ export const site = {
   // send to the address the key was registered with.
   contactFormKey: '2a5b4c46-9984-4311-9998-0b6a70064420',
   description:
-    'Senior frontend engineer building analytics dashboards and data visualization in React & TypeScript.',
+    'Senior software engineer building analytics dashboards and data visualization in React & TypeScript.',
   availability: {
     open: true,
     label: 'Open to senior frontend roles · Atlanta or remote',
