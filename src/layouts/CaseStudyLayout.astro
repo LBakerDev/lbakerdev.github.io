@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import Metric from '../components/Metric.astro';
 import Contact from '../components/Contact.astro';
@@ -11,9 +11,16 @@ interface Props {
 
 const { entry } = Astro.props;
 const { title, company, year, role, summary, metrics, stack, cover, coverAlt, links } = entry.data;
+
+// Shared links to a case study preview its own cover, not the site-wide image.
+// 1200 wide as JPEG: what LinkedIn and Slack expect, and small enough to load fast.
+const share = cover ? await getImage({ src: cover, width: 1200, format: 'jpeg', quality: 85 }) : undefined;
+const shareImage = share
+  ? { src: share.src, width: Number(share.attributes.width), height: Number(share.attributes.height), alt: coverAlt ?? title }
+  : undefined;
 ---
 
-<BaseLayout title={title} description={summary}>
+<BaseLayout title={title} description={summary} image={shareImage} type="article">
   <article class="case">
     <header class="container head">
       <a class="back" href="/#work">← All work</a>

@@ -6,9 +6,27 @@ import Experience from '../components/Experience.astro';
 import Toolkit from '../components/Toolkit.astro';
 import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
+import { site } from '../data/site';
+
+// Structured data: tells search engines this page is about a person, and that
+// the GitHub and LinkedIn profiles are the same person. Helps "London Baker"
+// searches find this site rather than bakeries.
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  description: site.description,
+  url: Astro.site?.href,
+  image: new URL('/og-image.png', Astro.site).href,
+  address: { '@type': 'PostalAddress', addressLocality: 'Atlanta', addressRegion: 'GA', addressCountry: 'US' },
+  knowsAbout: ['React', 'TypeScript', 'Frontend engineering', 'Data visualization', 'Design systems', 'Accessibility'],
+  sameAs: [site.links.github, site.links.linkedin],
+};
 ---
 
 <BaseLayout>
+  <script type="application/ld+json" slot="head" is:inline set:html={JSON.stringify(person)} />
   <Hero />
   <SelectedWork />
   <Experience />

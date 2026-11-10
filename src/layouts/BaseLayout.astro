@@ -1,14 +1,41 @@
 ---
+// Fonts are self-hosted (Fontsource), so text doesn't wait on a second domain.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter-tight/500.css';
+import '@fontsource/inter-tight/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import { site } from '../data/site';
 
+/** The preview image when the page is shared (LinkedIn, Slack, iMessage…). */
+interface ShareImage {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
+  /** Defaults to the site-wide image in public/og-image.png. */
+  image?: ShareImage;
+  /** 'article' for case studies; 'website' for everything else. */
+  type?: 'website' | 'article';
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, type = 'website' } = Astro.props;
+const image: ShareImage = Astro.props.image ?? {
+  src: '/og-image.png',
+  width: 1200,
+  height: 630,
+  alt: `${site.name}, ${site.role}`,
+};
+const imageUrl = new URL(image.src, Astro.site);
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -24,23 +51,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/og-image.png', Astro.site)} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${site.name}, ${site.role}`} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site)} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={image.alt} />
+    <slot name="head" />
     <!-- Visitor analytics: GoatCounter (cookie-free). Dashboard: londonbaker.goatcounter.com -->
     <script is:inline data-goatcounter="https://londonbaker.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   </head>
